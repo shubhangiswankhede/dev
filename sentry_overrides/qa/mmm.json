@@ -1,0 +1,29 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "DyCES-RTO"
+    }
+  ],
+  "override": {
+    "DyCES-RTO": {
+      "apps": {
+        "flume": null,
+        "jboss": {
+          "agent": null,
+          "rto-mmm": {
+            "dyces_mmm_m1": {
+              "jon_group": null
+            },
+            "dyces_rto_m1": null
+          }
+        },
+        "udeploy": null
+      }
+    }
+  }
+}

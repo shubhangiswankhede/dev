@@ -1,0 +1,38 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "ShopApp_JBOSS"
+    }
+  ],
+  "override": {
+    "ShopApp_JBOSS": {
+      "apps": {
+        "httpd": {
+          "bloomies_shopapp_qa_ws1[bcom]": {
+            "jon_group": null
+          },
+          "macys_shopapp_qa_ws1[mcom]": {
+            "jon_group": null
+          }
+        },
+        "jboss": {
+          "agent": null,
+          "shopapp": {
+            "bloomies-shopapp_bcomshopapp_m01[bcom]": {
+              "jon_group": null
+            },
+            "macys-shopapp_mcomshopapp_m01[mcom]": {
+              "jon_group": null
+            }
+          }
+        },
+        "udeploy": null
+      }
+    }
+  }
+}

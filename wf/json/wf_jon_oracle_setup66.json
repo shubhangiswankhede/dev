@@ -1,0 +1,120 @@
+{
+    "dependencies": {
+        "@end": [
+            "jon_config"
+        ],
+        "create_jon_db": [
+            "oracle_setup"
+        ],
+        "@start": [],
+        "get_jon_vm": [
+            "@start"
+        ],
+        "get_oracle_vm": [
+            "@start"
+        ],
+        "jon_config": [
+            "get_jon_vm",
+            "create_jon_db"
+        ],
+        "oracle_setup": [
+            "get_oracle_vm"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "oracle_nodes": {
+                "oracle1": {
+                    "username": "chefsolo",
+                    "storage_profile": "ODB",
+                    "image": "",
+                    "provider": "cd_cloud",
+                    "password": "solochef",
+                    "provision": true,
+                    "size": "C.small"
+                }
+            },
+            "jon_nodes": {
+                "jon1": {
+                    "username": "chefsolo",
+                    "storage_profile": "JBS",
+                    "image": "",
+                    "provider": "cd_cloud",
+                    "password": "solochef",
+                    "provision": true,
+                    "size": "C2.large"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "@end": {},
+        "create_jon_db": {
+            "json": {
+                "oracle": {
+                    "tablespace_size": "5G"
+                },
+                "run_list": [
+                    "role[cd_jon_create_db]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            }
+        },
+        "@start": {},
+        "get_jon_vm": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            },
+            "type": "vm-provision",
+            "simulate": false
+        },
+        "get_oracle_vm": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            },
+            "type": "vm-provision",
+            "simulate": false
+        },
+        "jon_config": {
+            "json": {
+                "jon": {
+                    "agent_ip": "@nodes/jon1/ip",
+                    "db_connection_url": "jdbc:oracle:thin:@#{@nodes/oracle1/ip}:1521:JONMYS01",
+                    "qa_env": true,
+                    "server_ip": "@nodes/jon1/ip"
+                },
+                "osconfig": {
+                    "app": "jon",
+                    "redhat_version": "6.6"
+                },
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "oracle_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_oracle_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            }
+        }
+    }
+}

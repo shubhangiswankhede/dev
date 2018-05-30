@@ -1,0 +1,78 @@
+{
+	"dependencies": {
+		"get_msp_order_vm": ["@start"],
+		"msp_order_config": ["get_msp_order_vm"],
+		"@end": ["msp_order_config"],
+		"@start": []
+	},
+	"resources": {
+		"nodes": {
+			"jboss_nodes": {
+				"jboss1": {
+					"username": "chefsolo",
+					"storage_profile": "JBS",
+					"image": "vappTemplate-1fd1523f-81d9-4c80-916c-fec75923ed8e",
+					"provider": "cd_cloud",
+					"password": "solochef",
+					"provision": true,
+					"size": "C.small"
+				}
+			}
+		},
+		"parameters": {}
+	},
+	"actions": {
+		"get_msp_order_vm": {
+			"nodes": {
+				"type": "LIST",
+				"node_list": "jboss_nodes"
+			},
+			"type": "vm-provision",
+			"simulate": false
+		},
+		"msp_order_config": {
+			"json": {
+				"jboss7": {
+					"init_script": false,
+					"mode": "standalone",
+					"ip_address": "order",
+					"minimal": true,
+					"env_name": "qa_order",
+					"kill_instance": true
+				},
+				"sdp": {
+					"servers": [{
+						"server_name": "msp_order_service_m1",
+						"http_port": 8080,
+						"spec_descriptor_property_replacement": "true",
+						"port_offset": "0",
+						"socket_binding_group": "msp_order_service_m1",
+						"heap_size": "2048m",
+						"propertyfile_name": "msp_order_service_m1"
+					}]
+				},
+				"java": {
+					"installation_names": "1.7.0_25"
+				},
+				"jon": {
+					"server_ip": "labFACjon",
+					"agent_ip": "order",
+					"agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+				},
+				"run_list": ["role[pd_java_install]",
+				"recipe[jboss7]",
+				"recipe[sdp::jboss]",
+				"recipe[sdp::sdp_files]",
+				"recipe[jon::rhqagent_install]",
+				"recipe[jon::rhqagent_config]"]
+			},
+			"type": "chef-solo",
+			"nodes": {
+				"type": "LIST",
+				"node_list": "jboss_nodes"
+			}
+		},
+		"@end": {},
+		"@start": {}
+	}
+}

@@ -1,0 +1,23 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "MSPtax"
+    }
+  ],
+  "override": {
+    "MSPtax": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      },
+      "hosts": null
+    }
+  }
+}

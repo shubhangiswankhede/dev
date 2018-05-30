@@ -1,0 +1,23 @@
+{
+	"certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "ecomportal"
+    }
+  ], 
+  "override": {
+    "ecomportal": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      }
+    }
+  }
+}
+

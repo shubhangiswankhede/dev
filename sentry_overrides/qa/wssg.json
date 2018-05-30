@@ -1,0 +1,72 @@
+{
+  "description": "wssg sentry validation needs to verify cookbook build before myservices workflow is involved",
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "WSSG_JBOSS"
+    }
+  ],
+  "override": {
+    "WSSG_JBOSS": {
+      "apps": {
+        "udeploy": null,
+        "httpd": {
+          "wssg_qa_ws1": {
+            "jon_group": null
+          }
+        },
+        "jboss": {
+          "agent": null,
+          "wssg": {
+            "wssg_qa_m1": {
+              "links": {
+                "configuration/environment.properties": {
+                  "source[mcom]": "/www/apps/properties/wssg_qa_m1.properties",
+                  "source[bcom]": "/www/apps/properties/wssg_qa_m1.properties"
+                }
+              },
+              "files": {
+                "bin/start_wssg_qa_m1.sh": {
+                  "entries[mcom]": null,
+                  "entries[bcom]": null
+                }
+              }
+            },
+            "wssg_qa_m2": {
+              "links": {
+                "configuration/environment.properties": {
+                  "source[mcom]": "/www/apps/properties/wssg_qa_m2.properties",
+                  "source[bcom]": "/www/apps/properties/wssg_qa_m2.properties"
+                }
+              },
+              "files": {
+                "bin/start_wssg_qa_m2.sh": {
+                  "entries[mcom]": null,
+                  "entries[bcom]": null
+                }
+              }
+            },
+            "wssg_qa_m3": {
+              "links": {
+                "configuration/environment.properties": {
+                  "source[mcom]": "/www/apps/properties/wssg_qa_m3.properties",
+                  "source[bcom]": "/www/apps/properties/wssg_qa_m3.properties"
+                }
+              },
+              "files": {
+                "bin/start_wssg_qa_m3.sh": {
+                  "entries[mcom]": null,
+                  "entries[bcom]": null
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "HFWGL"
+    }
+  ], 
+  "override": {
+    "HFWGL": {
+      "apps": {
+        "udeploy": null
+      }
+    }
+  }
+}

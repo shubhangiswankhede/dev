@@ -1,0 +1,23 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "MSPDiscovery"
+    }
+  ], 
+  "override": {
+    "MSPDiscovery": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      },
+      "hosts": null
+    }
+  }
+}

@@ -1,0 +1,617 @@
+
+{
+    "dependencies": {
+        "@start": [], 
+        "get_jboss1_vm": [
+            "@start"
+        ], 
+        "get_jboss2_vm": [
+            "@start"
+        ], 
+        "get_jboss3_vm": [
+            "@start"
+        ], 
+        "get_jboss4_vm": [
+            "@start"
+        ], 
+        "get_jboss5_vm": [
+            "@start"
+        ], 
+        "get_jboss6_vm": [
+            "@start"
+        ], 
+        "get_jon_vm": [
+            "@start"
+        ], 
+        "get_oracle_vm": [
+            "@start"
+        ], 
+        "create_jon_db": [
+            "oracle_setup"
+        ], 
+        "oracle_setup": [
+            "get_oracle_vm"
+        ],
+        "jon_config": [
+            "get_jon_vm", 
+            "create_jon_db"
+        ], 
+        "apollo_jboss_ac": [
+            "jon_config", 
+            "get_jboss1_vm"
+        ], 
+        "apollo_jboss_bot": [
+            "jon_config", 
+            "get_jboss2_vm"
+        ], 
+        "apollo_jboss_kws_index": [
+            "jon_config", 
+            "get_jboss3_vm"
+        ], 
+        "apollo_jboss_kws_search": [
+            "jon_config", 
+            "get_jboss4_vm"
+        ], 
+        "apollo_jboss_seo": [
+            "jon_config", 
+            "get_jboss5_vm"
+        ], 
+        "apollo_jboss_sns": [
+            "jon_config", 
+            "get_jboss6_vm"
+        ], 
+        "import_apollo_to_jon": [
+            "apollo_jboss_ac",
+            "apollo_jboss_bot",
+            "apollo_jboss_kws_index",
+            "apollo_jboss_kws_search",
+            "apollo_jboss_seo",
+            "apollo_jboss_sns"
+        ], 
+        "@end": [
+            "import_apollo_to_jon"
+        ] 
+    }, 
+    "resources": {
+        "nodes": {
+            "jboss_nodes": {
+                "jboss1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                },
+                "jboss2": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }, 
+                "jboss3": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }, 
+                "jboss4": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small" 
+                }, 
+                "jboss5": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }, 
+                "jboss6": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }
+            }, 
+            "oracle_nodes": {
+                "oracle1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "ODB", 
+                    "image": "vappTemplate-17e379a7-b00a-423c-b5c7-d2c02ccd6a03", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }
+            }, 
+            "jon_nodes": {
+                "jon1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "JBS", 
+                    "image": "vappTemplate-a58cfff0-2f2e-43da-aa63-08a79005339f", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "C.small"
+                }
+            }
+        }, 
+        "parameters": {}
+    }, 
+    "actions": {
+        "@start": {}, 
+        "get_jon_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jon_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_oracle_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "oracle_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "create_jon_db": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_create_db]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "oracle_nodes"
+            }
+        }, 
+        "get_jboss1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss1"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_jboss2_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss2"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_jboss3_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss3"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_jboss4_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss4"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_jboss5_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss5"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_jboss6_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss6"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "@end": {}, 
+        "import_apollo_to_jon": {
+            "json": {},
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jon_nodes"
+            }
+        }, 
+        "apollo_jboss_ac": {
+            "json": {
+                "jboss7": {
+                    "ip_address": "@nodes/jboss1/ip",
+                    "init_script": false,
+                    "env_name": "pp",
+                    "application": "apollo"
+                },
+                "apollo": {
+                    "servers": [
+                        {
+                            "server_name": "apollo_ac_stage5_search_m1",
+                            "http_port": 8080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "0",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "MacysStage5CellA.apollo_ac_search_m1"
+                        },
+                        {
+                            "server_name": "apollo_ac_stage5_search_m2",
+                            "http_port": 8080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "100",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "MacysStage5CellA.apollo_ac_search_m2"
+                        },
+                        {
+                            "server_name": "apollo_ac_stage5_index_m1",
+                            "http_port": 6080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "0",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "MacysStage5CellA.apollo_ac_index_m1"
+                        }
+                    ]
+                },
+                "jon": {
+                    "server_ip": "@nodes/jboss1/ip",
+                    "server_port": "7080",
+                    "agent_ip": "@nodes/jon1/ip",
+                    "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+                },
+                "java": {
+                  "installation_names": "1.7.0_51"
+                },
+                "osconfig": {
+                    "app": "apollo"
+                },
+                "run_list": [
+                    "role[pd_java_install]",
+                    "recipe[jboss7]",
+                    "recipe[apollo::jboss_apollo]",
+                    "recipe[jon::rhqagent_install]",
+                    "recipe[jon::rhqagent_config]",
+                    "recipe[osconfig::rc_local]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss1"
+                ]
+            }
+        }, 
+        "apollo_jboss_bot": {
+            "json": {
+                "jboss7": {
+                    "ip_address": "@nodes/jboss2/ip",
+                    "init_script": false,
+                    "env_name": "pp",
+                    "application": "apollo"
+                },
+                "apollo": {
+                    "servers": [
+                        {
+                            "server_name": "apollo_kws_stage5_bot_m1",
+                            "http_port": 8080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "0",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "MacysStage5CellA.apollo_kws_bot_m1"
+                        }
+
+                    ]
+                },
+                "jon": {
+                    "server_ip": "@nodes/jon1/ip",
+                    "server_port": "7080",
+                    "agent_ip": "@nodes/jboss2/ip",
+                    "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+                },
+                "java": {
+                    "installation_names": "1.7.0_51"
+                },
+                "osconfig": {
+                    "app": "apollo"
+                },
+                "run_list": [
+                    "role[pd_java_install]",
+                    "recipe[jboss7]",
+                    "recipe[apollo::jboss_apollo]",
+                    "recipe[jon::rhqagent_install]",
+                    "recipe[jon::rhqagent_config]",
+                    "recipe[osconfig::rc_local]"
+                ]
+            },
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss2"
+                ]
+            }
+        },        
+        "apollo_jboss_kws_index": {
+            "json": {
+                "jboss7": {
+                "ip_address": "@nodes/jboss3/ip",
+                "init_script": false,
+                "env_name": "pp",
+                "application": "apollo"
+            },
+            "apollo": {
+                "servers": [
+                    {
+                        "server_name": "apollo_kws_stage5_index_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "0",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "MacysStage5CellA.apollo_kws_index_m1"
+                    }
+                ]
+            },
+            "jon": {
+                "server_ip": "@nodes/jon1/ip",
+                "server_port": "7080",
+                "agent_ip": "@nodes/jboss2/ip",
+                "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+            },
+            "java": {
+                "installation_names": "1.7.0_51"
+            },
+            "osconfig": {
+                "app": "apollo"
+            },
+            "run_list": [
+                "role[pd_java_install]",
+                "recipe[jboss7]",
+                "recipe[apollo::jboss_apollo]",
+                "recipe[jon::rhqagent_install]",
+                "recipe[jon::rhqagent_config]",
+                "recipe[osconfig::rc_local]"
+            ]
+        },
+        "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss3"
+                ]
+            }
+        },  
+        "apollo_jboss_kws_search": {
+            "json": {
+                "jboss7": {
+                    "ip_address": "@nodes/jboss4/ip",
+                    "init_script": false,
+                    "env_name": "pp",
+                    "application": "apollo"
+            },
+            "apollo": {
+                "servers": [
+                    {
+                        "server_name": "apollo_kws_stage5_search_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "0",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "MacysStage5CellA.apollo_kws_search_m1"
+                    }
+                ]
+            },
+            "jon": {
+                "server_ip": "@nodes/jon1/ip",
+                "server_port": "7080",
+                "agent_ip": "@nodes/jboss4/ip",
+                "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+            },
+            "java": {
+                "installation_names": "1.7.0_51"
+            },
+            "osconfig": {
+                "app": "apollo"
+            },
+            "run_list": [
+                "role[pd_java_install]",
+                "recipe[jboss7]",
+                "recipe[apollo::jboss_apollo]",
+                "recipe[jon::rhqagent_install]",
+                "recipe[jon::rhqagent_config]",
+                "recipe[osconfig::rc_local]"
+            ]
+        },
+        "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss4"
+                ]
+            }
+        },      
+        "apollo_jboss_seo": {
+            "json": {
+                "jboss7": {
+                    "ip_address": "@nodes/jboss5/ip",
+                    "init_script": false,
+                    "env_name": "pp",
+                    "application": "apollo"
+            },
+            "apollo": {
+                "servers": [
+                    {
+                        "server_name": "apollo_seo_bstage5_search_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "500",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "BloomiesStage5CellA.apollo_seo_m1"
+                    },
+                    {
+                        "server_name": "apollo_seo_mstage5_search_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "8080",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "MacysStage5CellA.apollo_seo_m1"
+                    }
+                ]
+            },
+            "jon": {
+                "server_ip": "@nodes/jon1/ip",
+                "server_port": "7080",
+                "agent_ip": "@nodes/jboss5/ip",
+                "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+            },
+            "java": {
+                "installation_names": "1.7.0_51"
+            },
+            "osconfig": {
+                "app": "apollo"
+            },
+            "run_list": [
+                "role[pd_java_install]",
+                "recipe[jboss7]",
+                "recipe[apollo::jboss_apollo]",
+                "recipe[jon::rhqagent_install]",
+                "recipe[jon::rhqagent_config]",
+                "recipe[osconfig::rc_local]"
+            ]
+        },
+        "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss5"
+                ]
+            }
+        },      
+        "apollo_jboss_sns": {
+            "json": {
+                "jboss7": {
+                    "ip_address": "@nodes/jboss6/ip",
+                    "init_script": false,
+                    "env_name": "pp",
+                    "application": "apollo"
+            },
+            "apollo": {
+                "servers": [
+                    {
+
+                        "server_name": "apollo_kws_stage5_index_backup_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "100",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "MacysStage5CellA.apollo_index_backup_m1"
+                    },
+                    {
+                        "server_name": "apollo_sns_stage5_search_m1",
+                        "http_port": 8080,
+                        "spec_descriptor_property_replacement": "true",
+                        "port_offset": "0",
+                        "heap_size": "2048m",
+                        "propertyfile_name": "MacysStage5CellA.apollo_seo_m1"
+                    }
+
+                ]
+            },
+            "jon": {
+                "server_ip": "@nodes/jon1/ip",
+                "server_port": "7080",
+                "agent_ip": "@nodes/jboss6/ip",
+                "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+            },
+            "java": {
+                "installation_names": "1.7.0_51"
+            },
+            "osconfig": {
+                "app": "apollo"
+            },
+            "run_list": [
+                "role[pd_java_install]",
+                "recipe[jboss7]",
+                "recipe[apollo::jboss_apollo]",
+                "recipe[jon::rhqagent_install]",
+                "recipe[jon::rhqagent_config]",
+                "recipe[osconfig::rc_local]"
+            ]
+        },
+        "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                "jboss6"
+                ]
+            }
+        },      
+        "jon_config": {
+            "json": {
+                "jon": {
+                    "agent_ip": "@nodes/jon1/ip", 
+                    "db_connection_url": "jdbc:oracle:thin:@#{@nodes/oracle1/ip}:1521:JONMYS01", 
+                    "qa_env": "false", 
+                    "server_ip": "@nodes/jon1/ip"
+                }, 
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jon_nodes"
+            }
+        }, 
+        "oracle_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_oracle_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "oracle_nodes"
+            }
+        }
+    }
+}

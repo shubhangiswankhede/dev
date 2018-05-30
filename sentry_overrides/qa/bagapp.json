@@ -1,0 +1,22 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "BagApp"
+    }
+  ], 
+  "override": {
+    "BagApp": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      }
+    }
+  }
+}

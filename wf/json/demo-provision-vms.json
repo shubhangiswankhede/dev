@@ -1,0 +1,94 @@
+{
+    "dependencies": {
+        "@end": [
+            "jon_setup",
+            "sdp_jboss_build"
+        ],
+        "get_sdp_vm": [
+            "@start"
+        ],
+        "@start": [],
+        "jon_setup": [
+            "get_jon_vm"
+        ],
+        "sdp_jboss_build": [
+            "get_sdp_vm"
+        ],
+        "get_jon_vm": [
+            "@start"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "jboss_nodes": {
+                "jboss1": {
+                    "username": "chefsolo",
+                    "storage_profile": "WAS",
+                    "image": "vappTemplate-4a7f4fba-0f33-4286-92d6-bdcef420ea31",
+                    "provider": "cd_cloud",
+                    "password": "solochef",
+                    "provision": true,
+                    "size": "GC.small"
+                }
+            },
+            "jon_nodes": {
+                "jon1": {
+                    "username": "chefsolo",
+                    "storage_profile": "SDP-DB2",
+                    "image": "vappTemplate-75f7faf9-b3a5-4067-b526-1d50ad1d1fd0",
+                    "provider": "cd_cloud",
+                    "password": "solochef",
+                    "provision": true,
+                    "size": "GC.small"
+                }
+            }
+        },
+        "parameters": {
+            "resource_pool_url": "you will not use it"
+        }
+    },
+    "actions": {
+        "@end": {},
+        "get_sdp_vm": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jboss_nodes"
+            },
+            "type": "vm-provision",
+            "simulate": false
+        },
+        "@start": {},
+        "jon_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "sdp_jboss_build": {
+            "json": {
+                "run_list": [
+                    "role[cd_sdp_jboss]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jboss_nodes"
+            }
+        },
+        "get_jon_vm": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            },
+            "type": "vm-provision",
+            "simulate": false
+        }
+    }
+}

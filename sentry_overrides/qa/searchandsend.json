@@ -1,0 +1,27 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "SNS_JBOSS"
+    }
+  ], 
+  "override": {
+    "SNS_JBOSS": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        },
+        "httpd": {
+          "sns_qa_ws1": {
+            "jon_group": null
+          }
+        }
+      }
+    }
+  }
+}

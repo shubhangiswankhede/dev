@@ -1,0 +1,19 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "AsyncEWS"
+    }
+  ],
+  "override": {
+    "AsyncEWS": {
+      "apps": {
+        "udeploy": null
+      }
+    }
+  }
+}

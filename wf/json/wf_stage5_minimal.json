@@ -1,0 +1,129 @@
+{
+    "dependencies": {
+        "@start": [],
+        "dmgr_setup": [
+            "@start"
+        ],
+        "jon_setup": [
+            "@start"
+        ],
+        "navapp_shopapp_config": [
+            "dmgr_setup"
+        ],
+        "legacy_store_config": [
+            "dmgr_setup"
+        ],
+        "sdp_config": [
+            "jon_setup"
+        ],
+        "@end": [
+            "sdp_config",
+            "navapp_shopapp_config",
+            "legacy_store_config"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "dmgr_nodes": {
+                "dmgr_1": {
+                    "ip": "1.1.1.1"
+                }
+            },
+            "jboss_nodes": {
+                "jboss1": {
+                    "ip": "1.1.1.2"
+                }
+            },
+            "jon_nodes": {
+                "jon1": {
+                    "ip": "1.1.1.3"
+                }
+            },
+            "was_nodes": {
+                "was1": {
+                    "ip": "1.1.1.4"
+                },
+                "was2": {
+                    "ip": "1.1.1.5"
+                }
+            },
+            "ihs_nodes": {
+                "ihs1": {
+                    "ip": "1.1.1.6"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "@start": {},
+        "dmgr_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_was_dmgr]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "dmgr_nodes"
+            }
+        },
+        "jon_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "navapp_shopapp_config": {
+            "json": {
+                "websphere": {
+                    "dmgr_host": "jcia4022"
+                },
+                "run_list": [
+                    "role[cd_navapp_was_config]",
+                    "role[cd_shopapp_was_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "was_nodes"
+            }
+        },
+        "legacy_store_config": {
+            "json": {
+                "websphere": {
+                    "dmgr_host": "jcia4022"
+                },
+                "run_list": [
+                    "role[cd_legacy_store_was_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "was_nodes"
+            }
+        },
+        "sdp_config": {
+            "json": {
+                "run_list": [
+                    "role[cd_sdp_jboss_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jboss_nodes"
+            }
+        },
+        "@end": {}
+    }
+}

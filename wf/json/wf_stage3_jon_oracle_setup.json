@@ -1,0 +1,142 @@
+{
+    "dependencies": {
+        "create_jon_db": [
+            "oracle_setup"
+        ],
+        "jon_config": [
+            "create_jon_db"
+        ],
+        "@start": [],
+        "@end": [
+            "jon_config"
+        ],
+        "oracle_setup": [
+            "@start"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "oracle_nodes": {
+                "oracle1": {
+                    "username": "chefsolo",
+                    "ip": "",
+                    "password": "solochef"
+                }
+            },
+            "jon_nodes": {
+                "jon1": {
+                    "username": "chefsolo",
+                    "ip": "",
+                    "password": "solochef"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "create_jon_db": {
+            "oracle": {
+                "tablespace_size": "5G"
+            },
+            "json": {
+                "run_list": [
+                    "role[cd_jon_create_db]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            }
+        },
+        "jon_config": {
+            "json": {
+                "jon": {
+                    "agent_ip": "labFACjon",
+                    "db_connection_url": "jdbc:oracle:thin:@labJonOra:1521:JONMYS01",
+                    "qa_env": true,
+                    "server_ip": "labFACjon"
+                },
+                "hosts": {
+                    "ip": {
+                        "0": [
+                            "127.0.0.1",
+                            "localhost.localdomain",
+                            "localhost"
+                            ],
+                        "1": [
+                            "::1",
+                            "localhost6.localdomain6",
+                            "localhost6"
+                            ],
+                        "2": [
+                            "11.48.56.225",
+                            "labFACjon.federated.fds",
+                            "labFACjon"
+                            ],
+                        "3": [
+                            "11.48.56.230",
+                            "labJonOra.federated.fds",
+                            "labJonOra"
+                            ]
+                    }
+                },
+                "osconfig": {
+                    "redhat_version": "5.9"
+                },
+                "run_list": [
+                    "role[cd_jon_os]",
+                    "recipe[hosts::etc_hosts]",
+                    "role[cd_jon_config]",
+                    "recipe[osconfig::solo_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "@start": {},
+        "@end": {},
+        "oracle_setup": {
+            "json": {
+                "run_list": [
+                    "recipe[hosts::etc_hosts]",
+                    "role[cd_oracle_install]",
+                    "role[cd_oracle_config]",
+                    "recipe[osconfig::solo_config]"
+                ],
+                "hosts": {
+                    "ip": {
+                        "0": [
+                            "127.0.0.1",
+                            "localhost.localdomain",
+                            "localhost"
+                            ],
+                        "1": [
+                            "::1",
+                            "localhost6.localdomain6",
+                            "localhost6"
+                            ],
+                        "2": [
+                            "11.48.56.230",
+                            "labJonOra.federated.fds",
+                            "labJonOra"
+                            ],
+                        "3": [
+                            "11.48.56.225",
+                            "labFACjon.federated.fds",
+                            "labFACjon"
+                            ]
+                    }
+                }
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            }
+        }
+    }
+}

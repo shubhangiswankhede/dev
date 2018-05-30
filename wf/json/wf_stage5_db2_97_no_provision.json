@@ -1,0 +1,54 @@
+{
+    "dependencies": {
+        "create_mcom_databases": [
+            "install_db2_server"
+        ],
+        "install_db2_server": [
+            "@start"
+        ],
+        "@start": [],
+        "@end": [
+            "create_mcom_databases"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "db2_nodes": {
+                "db2_1": {
+                    "username": "chefsolo",
+                    "ip": "",
+                    "password": "solochef"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "create_mcom_databases": {
+            "json": {
+                "run_list": [
+                    "role[cd_97db2_CRT_mcomDB]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "db2_nodes"
+            }
+        },
+        "install_db2_server": {
+            "json": {
+                "run_list": [
+                    "role[cd_db2_server_install]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "db2_nodes"
+            }
+        },
+        "@start": {},
+        "@end": {}
+    }
+}

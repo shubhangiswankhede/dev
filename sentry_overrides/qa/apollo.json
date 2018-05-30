@@ -1,0 +1,22 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "Apollo_JBOSS"
+    }
+  ],
+  "override": {
+    "Apollo_JBOSS": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      }
+    }
+  }
+}

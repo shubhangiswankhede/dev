@@ -1,0 +1,483 @@
+{
+    "dependencies": {
+        "get_jon1_vm": [
+            "@start"
+        ], 
+        "ihs_legacy_store_setup": [
+            "ihs_shopapp_setup"
+        ], 
+        "get_was2_vm": [
+            "@start"
+        ], 
+        "get_sdp_vm": [
+            "@start"
+        ], 
+        "ihs_navapp_shopapp_federation": [
+            "legacy_store_config"
+        ], 
+        "get_oracle1_vm": [
+            "@start"
+        ], 
+        "dmgr_setup": [
+            "get_dmgr_1_vm"
+        ], 
+        "get_was1_vm": [
+            "@start"
+        ], 
+        "legacy_store_config": [
+            "shopapp_config", 
+            "get_was2_vm", 
+            "ihs_legacy_store_setup"
+        ], 
+        "ihs_navapp_setup": [
+            "get_ihs1_vm"
+        ], 
+        "get_db21_vm": [
+            "@start"
+        ], 
+        "get_ihs1_vm": [
+            "@start"
+        ], 
+        "navapp_config": [
+            "dmgr_setup", 
+            "get_was1_vm"
+        ], 
+        "db2_setup": [
+            "get_db21_vm"
+        ], 
+        "jon_setup": [
+            "get_jon1_vm"
+        ], 
+        "sdp_config": [
+            "get_sdp_vm", 
+            "jon_setup", 
+            "oracle_setup", 
+            "db2_setup", 
+            "ihs_navapp_setup"
+        ], 
+        "get_ihs_vm": [
+            "@start"
+        ], 
+        "ihs_shopapp_setup": [
+            "ihs_navapp_setup"
+        ], 
+        "@end": [
+            "ihs_navapp_shopapp_federation"
+        ], 
+        "get_dmgr_1_vm": [
+            "@start"
+        ], 
+        "db2_admin_load": [
+            "db2_setup"
+        ], 
+        "@start": [], 
+        "shopapp_config": [
+            "navapp_config", 
+            "ihs_shopapp_setup", 
+            "sdp_config", 
+            "db2_admin_load"
+        ], 
+        "oracle_setup": [
+            "get_oracle1_vm"
+        ]
+    }, 
+    "resources": {
+        "nodes": {
+            "was_nodes": {
+                "was1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-9cabd5b4-7b62-442a-b06d-7af7fe9e6ae7", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }, 
+                "was2": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-9cabd5b4-7b62-442a-b06d-7af7fe9e6ae7", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "ihs_nodes": {
+                "ihs1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-5722fcc2-cedb-40fc-962f-f28402bf19dc", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "oracle_nodes": {
+                "oracle1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-73c80ef3-3c75-4784-bafa-277aa6f79157", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "jboss_nodes": {
+                "jboss1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-21ca6b7e-7fd6-4b20-aaab-d086448fac87", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "dmgr_nodes": {
+                "dmgr_1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-9cabd5b4-7b62-442a-b06d-7af7fe9e6ae7", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "db2_nodes": {
+                "db21": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-c9c03847-e6d0-4b29-b4e8-516a157fc3d2", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }, 
+            "jon_nodes": {
+                "jon1": {
+                    "username": "chefsolo", 
+                    "storage_profile": "SDP-DB2", 
+                    "image": "vappTemplate-7ea15a97-6602-4b0a-bc53-95c701a6304b", 
+                    "provider": "cd_cloud", 
+                    "password": "solochef", 
+                    "provision": true, 
+                    "size": "GC.small"
+                }
+            }
+        }, 
+        "parameters": {}
+    }, 
+    "actions": {
+        "get_jon1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jon_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "ihs_legacy_store_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_legacy_store_ihs_instance]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "ihs_nodes"
+            }
+        }, 
+        "get_was2_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                    "was2"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "get_sdp_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jboss_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "ihs_navapp_shopapp_federation": {
+            "json": {
+                "websphere": {
+                    "group": "fsgsbl", 
+                    "version": "7.0.0.27", 
+                    "cell_name": "storemacys", 
+                    "admin_username": "wasadmin", 
+                    "base": "/usr/WebSphere70", 
+                    "user": "fsgapp", 
+                    "home": "/usr/WebSphere70/AppServer", 
+                    "dmgr_profile_name": "storemacys_dmgr", 
+                    "admin_password": "wasadmin1"
+                }, 
+                "ihs": {
+                    "user": "fsgapp", 
+                    "group": "fsgsbl", 
+                    "admin_password": "wasadmin1", 
+                    "admin_username": "wasadmin", 
+                    "servers": [
+                        {
+                            "http_port": 80, 
+                            "virtualhost": "macys-navapp_cluster1", 
+                            "server_name": "storemacys_macys-navapp_cluster1", 
+                            "ihshost_name": "@nodes/ihs1/ip", 
+                            "node_name": "macys-navapp_cluster1_ws"
+                        }, 
+                        {
+                            "http_port": 85, 
+                            "virtualhost": "macys-shopapp_cluster1", 
+                            "server_name": "storemacys_macys-shopapp_cluster1", 
+                            "ihshost_name": "@nodes/ihs1/ip", 
+                            "node_name": "macys-shopapp_cluster1_ws"
+                        }, 
+                        {
+                            "http_port": 80, 
+                            "virtualhost": "macys-store_cluster1", 
+                            "server_name": "storemacys_macys-store_cluster1", 
+                            "ihshost_name": "@nodes/ihs1/ip", 
+                            "node_name": "macys-store_cluster1_ws"
+                        }
+                    ]
+                }, 
+                "run_list": [
+                    "recipe[ihs::ihs_create_unmanagedNode_plugin]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "dmgr_nodes"
+            }
+        }, 
+        "get_oracle1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "oracle_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "dmgr_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_was_dmgr]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "dmgr_nodes"
+            }
+        }, 
+        "get_was1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                    "was1"
+                ]
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "legacy_store_config": {
+            "json": {
+                "websphere": {
+                    "dmgr_host": "@nodes/dmgr_1/ip"
+                },
+                "legacy_store": {
+                    "datasource": {
+                        "macysession_db_servername": "@nodes/db21/ip",
+                        "macys_db_servername": "@nodes/db21/ip",
+                        "messaging_db_servername": "@nodes/db21/ip",
+                        "mycsu_db_servername": "@nodes/db21/ip"
+
+                    }
+                }, 
+                "run_list": [
+                    "role[cd_legacy_store_was_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                    "was2"
+                ]
+            }
+        }, 
+        "ihs_navapp_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_navapp_ihs_instance]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "ihs_nodes"
+            }
+        }, 
+        "get_db21_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "db2_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "shopapp_config": {
+            "json": {
+                "websphere": {
+                    "dmgr_host": "@nodes/dmgr_1/ip"
+                },
+                "shopapp": {
+                    "datasource": {
+                        "macysession_db_servername": "@nodes/db21/ip"
+                    }
+                }, 
+                "run_list": [
+                    "role[cd_shopapp_was_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                    "was1"
+                ]
+            }
+        }, 
+        "get_ihs1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "ihs_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "db2_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_105db2_CRT_mcomDB]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "db2_nodes"
+            }
+        }, 
+        "jon_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jon_nodes"
+            }
+        }, 
+        "sdp_config": {
+            "json": {
+                "jon": {
+                    "server_ip": "@nodes/jon1/ip"
+                }, 
+                "run_list": [
+                    "role[cd_sdp_jboss_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "jboss_nodes"
+            }
+        }, 
+        "get_ihs_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "ihs_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "ihs_shopapp_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_shopapp_ihs_instance]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "ihs_nodes"
+            }
+        }, 
+        "@end": {}, 
+        "get_dmgr_1_vm": {
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "dmgr_nodes"
+            }, 
+            "type": "vm-provision", 
+            "simulate": false
+        }, 
+        "db2_admin_load": {
+            "json": {
+                "run_list": [
+                    "role[cd_105db2_AdminLoad_mcom]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "db2_nodes"
+            }
+        }, 
+        "@start": {}, 
+        "navapp_config": {
+            "json": {
+                "websphere": {
+                    "dmgr_host": "@nodes/dmgr_1/ip"
+                }, 
+                "run_list": [
+                    "role[cd_navapp_was_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": [
+                    "was1"
+                ]
+            }
+        }, 
+        "oracle_setup": {
+            "json": {
+                "run_list": [
+                    "role[cd_oracle_config]"
+                ]
+            }, 
+            "type": "chef-solo", 
+            "nodes": {
+                "type": "LIST", 
+                "node_list": "oracle_nodes"
+            }
+        }
+    }
+}

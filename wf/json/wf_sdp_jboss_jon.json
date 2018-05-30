@@ -1,0 +1,91 @@
+{
+    "dependencies": {
+        "@start": [],
+        "sdp_jboss_cleanup": [
+            "@start"
+        ],
+        "jon_cleanup": [
+            "@start"
+        ],
+        "jon_config": [
+            "jon_cleanup"
+        ],
+        "sdp_jboss_config": [
+            "sdp_jboss_cleanup"
+        ],
+        "@end": [
+            "sdp_jboss_config",
+            "jon_config"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "jboss_nodes": {
+                "sdp1": {
+                    "ip": "1.1.1.1"
+                }
+            },
+            "jon_nodes": {
+                "jon1": {
+                    "ip": "1.1.1.2"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "@start": {},
+        "sdp_jboss_cleanup": {
+            "json": {
+                "run_list": [
+                    "role[cd_jboss_uninstall]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jboss_nodes"
+            }
+        },
+        "jon_cleanup": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_uninstall]"
+                ]
+            },
+            "type": "chef-solo",
+            "parallel": false,
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "sdp_jboss_config": {
+            "json": {
+                "run_list": [
+                    "role[cd_sdp_jboss_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "parallel": false,
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jboss_nodes"
+            }
+        },
+        "jon_config": {
+            "json": {
+                "run_list": [
+                    "role[cd_jon_config]"
+                ]
+            },
+            "type": "chef-solo",
+            "parallel": false,
+            "nodes": {
+                "type": "LIST",
+                "node_list": "jon_nodes"
+            }
+        },
+        "@end": {}
+    }
+}

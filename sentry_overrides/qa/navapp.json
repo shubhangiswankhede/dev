@@ -1,0 +1,30 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "NavApp_JBOSS"
+    }
+  ], 
+  "override": {
+    "NavApp_JBOSS": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        },
+        "httpd": {
+          "macys_navapp_qa_ws1[mcom]": {
+            "jon_group": null
+          },
+          "bloomies_navapp_qa_ws1[bcom]": {
+            "jon_group": null
+          }
+        }
+      }
+    }
+  }
+}

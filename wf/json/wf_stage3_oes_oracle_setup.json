@@ -1,0 +1,295 @@
+{
+    "dependencies": {
+        "create_oes_db": [
+            "@start"
+        ],
+        "oes_config": [
+            "@start"
+        ],
+        "@start": [],
+        "@end": [
+            "create_oes_db",
+            "oes_config"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "oracle_nodes": {
+                "oracle1": {
+                    "username": "chefsolo",
+                    "ip": "",
+                    "password": "solochef"
+                }
+            },
+            "oes_nodes": {
+                "oes1": {
+                    "username": "chefsolo",
+                    "ip": "",
+                    "password": "solochef"
+                }
+            }
+        },
+        "parameters": {}
+    },
+    "actions": {
+        "create_oes_db": {
+            "json": {
+                "run_list": [
+                    "recipe[osconfig::sysconfig_network]",
+                    "role[cd_oes_create_db]",
+                    "recipe[hosts::etc_hosts]",
+                    "recipe[osconfig::hosts_backup]"
+                ],
+                "osconfig": {
+                    "app": "oes_db",
+                    "bridged" : "%%BRIDGED%%"
+                },
+                "hosts": {
+                    "internal_hostname": "mcomoesdb",
+                    "ip": {
+                        "0": [
+                            "127.0.0.1",
+                            "localhost.localdomain",
+                            "localhost",
+                            "localhost4",
+                            "localhost4.localdomain4"
+                        ],
+                        "1": [
+                            "::1",
+                            "localhost",
+                            "localhost.localdomain",
+                            "localhost6",
+                            "localhost6.localdomain6"
+                        ],
+                        "2": [
+                            "11.48.56.216",
+                            "mcomoes"
+                        ],
+                        "3": [
+                            "11.48.56.217",
+                            "mcomoesdb"
+                        ],
+                        "4": [
+                            "11.48.22.153",
+                            "gridoms.federated.fds",
+                            "gridoms",
+                            "loghost"
+                        ]
+                    }
+                }
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oracle_nodes"
+            }
+        },
+        "oes_config": {
+            "json": {
+                "jboss7": {
+                    "jboss_home": "/usr/jboss/jbosseap",
+                    "user": "fsgapp",
+                    "group": "fsgsbl",
+                    "version": "6.3.3",
+                    "init_script": false,
+                    "mode": "standalone",
+                    "ip_address": "mcomoes",
+                    "minimal": true,
+                    "keystore_password": "changeit",
+                    "env_name": "qa",
+                    "start_instances": "%%start_instances%%"
+                },
+                "oes": {
+                    "user": "fsgapp",
+                    "group": "fsgsbl",
+                    "app": "oes",
+                    "release": "15H",
+                    "brand": "mcom",
+                    "servers": [
+                        {
+                            "server_name": "oes_notifications_m1",
+                            "http_port": 8080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "0",
+                            "socket_binding_group": "oes_notifications_m1",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "oes_notifications_m1",
+                            "udp_ip": "231.1.2.32",
+                            "udp_port": "23123"
+                        },
+                        {
+                            "server_name": "oes_notifications-ui_m1",
+                            "http_port": 8080,
+                            "spec_descriptor_property_replacement": "true",
+                            "port_offset": "100",
+                            "socket_binding_group": "oes_notifications-ui_m1",
+                            "heap_size": "2048m",
+                            "propertyfile_name": "oes_notifications-ui_m1",
+                            "modclusterhost": "mcomoes",
+                            "modclusterport": "10000",
+                            "udp_ip": "231.1.2.32",
+                            "udp_port": "23123"
+                        }
+                    ]
+                },
+                "ews": {
+                    "user": "fsgapp",
+                    "group": "fsgsbl",
+                    "ews_home": "/usr/jboss/jbossweb",
+                    "version": "2.1.0",
+                    "app": "oes",
+                    "env_name": "qa",
+                    "instances": [
+                        {
+                            "instance_name": "oes_ws1",
+                            "ews_listenhost": "mcomoes",
+                            "ews_listenport": "80",
+                            "ews_ssl_listenport": "",
+                            "modcluster_host": "*",
+                            "modcluster_port": "10000",
+                            "modcluster_allow_access": "all",
+                            "nonorigin_hostname": "oes.macys.com"
+                        }
+                    ]
+                },
+                "java": {
+                    "installation_names": "1.7.0_51"
+                },
+                "jon": {
+                    "server_ip": "labFACjon",
+                    "agent_ip": "mcomoes",
+                    "agent_dl_path": "http://binrepo/jon/rhq-enterprise-agent-4.4.0.JON312GA.jar"
+                },
+                "osconfig": {
+                    "app": "oes",
+                    "rmem_max": 2096304,
+                    "wmem_max": 2096304,
+                    "redhat_version": "6.6",
+                    "users": [
+                        {
+                            "username": "oes",
+                            "group": "oesgroup",
+                            "home": "/home/oes",
+                            "password": "$1$oes$3W940EqqYkoqLt63P0.D10",
+                            "do_not_create": false,
+                            "add_sudo": true,
+                            "sudo_options": "requiretty",
+                            "sudo_run_as": "fsgapp",
+                            "sudo_nopwd": true,
+                            "sudo_commands": "ALL"
+                        },
+                        {
+                            "username": "oes_hb_loader",
+                            "group": "oesgroup",
+                            "home": "/home/oes_hb_loader",
+                            "password": "$1$oes_hb_l$J9y7BnEFUBOWqqNtP5rmv/",
+                            "do_not_create": false,
+                            "add_sudo": true,
+                            "sudo_options": "requiretty",
+                            "sudo_run_as": "fsgapp",
+                            "sudo_nopwd": true,
+                            "sudo_commands": "ALL"
+                        },
+                        {
+                            "username": "oes_archive_loader",
+                            "group": "oesgroup",
+                            "home": "/home/oes_archive_loader",
+                            "password": "$1$oes_arch$sMae0136zHJl7PnT6xJBj.",
+                            "do_not_create": false,
+                            "add_sudo": true,
+                            "sudo_options": "requiretty",
+                            "sudo_run_as": "fsgapp",
+                            "sudo_nopwd": true,
+                            "sudo_commands": "ALL"
+                        },
+                        {
+                            "username": "b0_ftpd",
+                            "group": "b0_ftpd",
+                            "home": "/home/b0_ftpd",
+                            "password": "$1$b0_ftpd$ajEoZvxA2Q/fAqasRFCW10",
+                            "do_not_create": false,
+                            "add_sudo": true,
+                            "sudo_options": "requiretty",
+                            "sudo_run_as": "fsgapp",
+                            "sudo_nopwd": true,
+                            "sudo_commands": "ALL"
+                        },
+                        {
+                            "username": "fsgapp",
+                            "group": "fsgsbl",
+                            "home": "/home/fsgapp",
+                            "add_sudo": true,
+                            "sudo_commands": "ALL",
+                            "sudo_run_as": "ALL",
+                            "sudo_nopwd": true
+                        },
+                        {
+                            "username": "labuser",
+                            "group": "labuser",
+                            "home": "/home/labuser",
+                            "password": "$1$71Zghdbo$sUGwg9kU45py.z7M7Ssju0",
+                            "do_not_create": false,
+                            "add_sudo": true,
+                            "sudo_options": "requiretty",
+                            "sudo_run_as": "fsgapp",
+                            "sudo_nopwd": true,
+                            "sudo_commands": "ALL"
+                        },
+                        {
+                            "username": "b0_udoa",
+                            "group": "b0_udoa",
+                            "home": "/home/b0_udoa"
+                        }
+                    ]
+                },
+                "hosts": {
+                    "ip": {
+                        "0": [
+                            "127.0.0.1",
+                            "localhost.localdomain",
+                            "localhost"
+                        ],
+                        "1": [
+                            "::1",
+                            "localhost6.localdomain6",
+                            "localhost6"
+                        ],
+                        "2": [
+                            "11.48.56.216",
+                            "mcomoes",
+                            "labmcomoes"
+                        ],
+                        "3": [
+                            "11.48.56.217",   
+                            "mcomoesdb"
+                        ]
+                    }
+                },
+                "run_list": [
+                    "recipe[osconfig::sysconfig_network]",
+                    "role[cd_jboss_os]",
+                    "role[pd_java_install]",
+                    "role[cd_ews_os66]",
+                    "recipe[ews]",
+                    "recipe[oes::ews]",
+                    "recipe[hosts::etc_hosts]",
+                    "recipe[osconfig::dynaimg_mount]",
+                    "recipe[jboss7]",
+                    "recipe[oes::jboss_config]",
+                    "recipe[jon::rhqagent_install]",
+                    "recipe[jon::rhqagent_config]",
+                    "recipe[osconfig::rc_local]",
+                    "recipe[osconfig::solo_config]",
+                    "recipe[osconfig::hosts_backup]"
+                ]
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "oes_nodes"
+            }
+        },
+        "@start": {},
+        "@end": {}
+    }
+}

@@ -1,0 +1,6 @@
+source :rubygems
+
+group :workflow do
+  gem 'thor'
+
+end

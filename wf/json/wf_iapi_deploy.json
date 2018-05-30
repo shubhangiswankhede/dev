@@ -1,0 +1,100 @@
+{
+    "dependencies": {
+        "prepare_vm": [
+            "@start"
+        ],
+        "@start": [],
+        "@end": [
+            "deploy_iapi"
+        ],
+        "deploy_iapi": [
+            "prepare_vm",
+            "clear_yum_cache"
+        ],
+        "clear_yum_cache": [
+            "prepare_vm"
+        ]
+    },
+    "resources": {
+        "nodes": {
+            "c4d_nodes": {
+                "node01": {
+                    "username": "chefsolo",
+                    "ip": "1.2.3.4",
+                    "password": "solochef"
+                }
+            }
+        },
+        "parameters": {
+            "mysql_password": "password",
+            "iapi_download_url": "http://127.0.0.1:8000/iapi.tar.gz",
+            "clean_yum_cache": "true",
+            "run_initial_preparation": "true"
+        }
+    },
+    "actions": {
+        "clear_yum_cache": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "c4d_nodes"
+            },
+            "only_if": {
+                "@parameters/clean_yum_cache": {
+                    "equals": "true"
+                }
+            },
+            "type": "shell",
+            "simulate": false,
+            "parameters": {
+                "script": "yum clean all || true"
+            }
+        },
+        "@start": {},
+        "@end": {},
+        "deploy_iapi": {
+            "json": {
+                "cloud_hammer": {
+                    "database_engine": "django.db.backends.mysql",
+                    "pdns_enabled": false,
+                    "download_url": "@parameters/iapi_download_url",
+                    "celery": {
+                        "enabled": false
+                    },
+                    "rewrite_conf": false,
+                    "ldap_enabled": false,
+                    "restart_daemon": false
+                },
+                "recipes": [
+                    "cloud_hammer"
+                ],
+                "mysql": {
+                    "server_root_password": "@parameters/mysql_password",
+                    "server_repl_password": "@parameters/mysql_password",
+                    "bind_address": "127.0.0.1",
+                    "server_debian_password": "@parameters/mysql_password"
+                }
+            },
+            "type": "chef-solo",
+            "nodes": {
+                "type": "LIST",
+                "node_list": "c4d_nodes"
+            },
+            "simulate": false
+        },
+        "prepare_vm": {
+            "nodes": {
+                "type": "LIST",
+                "node_list": "c4d_nodes"
+            },
+            "only_if": {
+                "@parameters/run_initial_preparation": {
+                    "equals": "true"
+                }
+            },
+            "type": "shell",
+            "parameters": {
+                "script": "echo '* hard nproc 200000' >> /etc/security/limits.d/90-nproc.conf && echo '[rhel64]\nname = RHEL 6.4\nbaseurl = http://binrepo/rhel/6.4/\ngpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RBEL\ngpgcheck = 0\nenabled = 1' > /etc/yum.repos.d/binreprhel.repo && rpm -Uhv http://mirror.pnl.gov/epel/6/i386/epel-release-6-8.noarch.rpm"
+            }
+        }
+    }
+}

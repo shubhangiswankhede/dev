@@ -1,0 +1,23 @@
+{
+  "certification": "host",
+  "topology": "qa",
+  "release": "trunk",
+  "brand": "MCOM",
+  "hosts": [
+    {
+      "vmName": "%%IP%%",
+      "vmType": "FCC_JBOSS"
+    }
+  ], 
+  "override": {
+    "FCC_JBOSS": {
+      "apps": {
+        "udeploy": null,
+        "jboss": {
+          "agent": null
+        }
+      },
+      "hosts": null
+    }
+  }
+}
