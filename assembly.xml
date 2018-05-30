@@ -1,0 +1,21 @@
+<assembly>
+    <id>cd-SE-CI</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <!--
+            <excludes>
+              <exclude>Archive/**/*</exclude>
+            </excludes>
+            -->
+        </fileSet>
+    </fileSets>
+</assembly>

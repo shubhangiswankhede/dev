@@ -1,0 +1,14 @@
+vapp_jboss_template_id=vappTemplate-61e58f9e-bb36-4f38-ad58-fbeb240c6904
+vapp_node_size=GC.small
+vapp_storage_profile=SDP-DB2
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+channel_code=11
+application_code=MCOM.SE
+org_code=MCOM.SE
+group_code=MCOM.SE
+SDP_Config_JBOSS_test:cd_sdp_jboss_test
+Apollo_Config_JBOSS_test:cd_apollo_jboss_test
+FCC_Client_Config_JBOSS_test:cd_fcc_jboss_test
+MSP_Content_Config_JBOSS_test:cd_msp_content_jboss_test
+MSP_Order_Config_JBOSS_test:cd_msp_order_jboss_test
+MMM_Config_JBOSS_test:cd_mmm_jboss_test

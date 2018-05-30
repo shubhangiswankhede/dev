@@ -1,0 +1,6 @@
+vapp_springdm_template_id=vappTemplate-131e64c3-07d0-4ae7-97b0-2aad5312998a
+vapp_node_size=GC.small
+vapp_storage_profile=SDP-DB2
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+SDP_Config_SpringDM_test:cd_sdp_springdm_test
+Apollo_Config_SpringDM_test:cd_apollo_springdm_test

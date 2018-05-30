@@ -1,0 +1,17 @@
+vapp_was_template_id=vappTemplate-7a72b578-78ce-435c-8209-c0d36efd9c35
+vapp_node_size=GC.small
+vapp_storage_profile=WAS
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+channel_code=11
+application_code=MCOM.SE
+org_code=MCOM.SE
+group_code=MCOM.SE
+NavApp_Config_test:cd_navapp_was_test
+EZPay_Config_test:cd_ezpay_was_test
+ShopApp_Config_test:cd_shopapp_was_test
+eComPortal_Config_test:cd_portal_was_test
+Search_n_Send_Config_test:cd_sns_was_test
+WSSG_Config_test:cd_wssg_was_test
+Legacy_Config_test:cd_legacy_store_was_test
+Onlinestatements_Config_test:cd_onlinestatements_was_test
+Midtier_Config_test:cd_midtier_was_test

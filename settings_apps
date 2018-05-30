@@ -1,0 +1,7 @@
+vapp_was_template_id=vappTemplate-236b3d97-b041-48b4-864c-7a764b64932d
+vapp_jboss_template_id=vappTemplate-acb6b4ae-b9e4-4cc9-9c23-81050e922947
+vapp_node_size=0
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+NavApp_Config_test:cd_navapp_was_test
+ShopApp_Config_test:cd_shopapp_was_test
+SDP_Config_JBOSS_test:cd_sdp_jboss_test

@@ -1,0 +1,26 @@
+{
+    "sdp": {
+        "servers": [
+            {
+                "server_name": "sdp_pp8_esu2v222_nonstorage_m1",
+                "group_name": "SDP_NONSTORAGE_GROUP",
+                "platform": "esu2v222"
+            }
+        ],
+        "agents": [
+            {
+                "agent_name": "sdp_agent",
+                "group_name": "SDP_AGENTS_GROUP",
+                "platform": "esu2v222"
+            }
+        ]
+    },
+    "jon": {
+        "server_ip": "esu2v865",
+        "server_port": 7080,
+        "agent_ip": "esu2v222"
+    },
+    "run_list": [
+        "recipe[jon::jon_eap_config]"
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "sdp": {
+        "servers": [
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m1",
+                "group_name": "SDP_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m2",
+                "group_name": "SDP_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m3",
+                "group_name": "SDP_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m4",
+                "group_name": "SDP_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m5",
+                "group_name": "BOPS_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+            {
+                "server_name": "sdp_pp8_esu2v445_storage_m6",
+                "group_name": "BOPS_STORAGE_GROUP",
+                "platform": "esu2v445"
+            },
+			{
+                "server_name": "sdp_pp8_esu2v445_storage_m7",
+                "group_name": "BOPS_STORAGE_GROUP",
+                "platform": "esu2v445"
+            }
+        ],
+        "agents": [
+            {
+                "agent_name": "sdp_agent",
+                "group_name": "SDP_AGENTS_GROUP",
+                "platform": "esu2v445"
+            }
+        ]
+    },
+    "jon": {
+        "server_ip": "esu2v865",
+        "server_port": 7080,
+        "agent_ip": "esu2v445"
+    },
+    "run_list": [
+        "recipe[jon::jon_eap_config]"
+    ]
+}

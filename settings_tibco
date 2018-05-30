@@ -1,0 +1,9 @@
+vapp_tibco_template_id=vappTemplate-b3d0fbc1-7553-4084-8952-f34d348208f4
+vapp_node_size=GC.small
+vapp_storage_profile=SDP-DB2
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+channel_code=11
+application_code=MCOM.SE
+org_code=MCOM.SE
+group_code=MCOM.SE
+tibco_config_test:cd_tibco_ems_config

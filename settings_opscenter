@@ -1,0 +1,9 @@
+vapp_cassandra_template_id=vappTemplate-48eda99e-e80a-4b45-a9cf-f9dbb8dfaa03
+vapp_node_size=GC.small
+vapp_storage_profile=SDP-DB2
+vapp_network_id=83a426bf-c493-4171-a2f4-6d2429050978
+channel_code=11
+application_code=MCOM.SE
+org_code=MCOM.SE
+group_code=MCOM.SE
+Opscenter_Config_test:cd_opscenter_cluster_config
