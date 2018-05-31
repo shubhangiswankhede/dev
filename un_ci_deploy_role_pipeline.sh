@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare -r SETTINGS='settings'
-source SE-CI/ci_functions.sh
+source dev/ci_functions.sh
 declare -r CUR_DIR=`dirname "${BASH_SOURCE[0]}"`
 declare -r master_job="_Master_Pipeline"
 declare -r chefdir="all_chefs"
@@ -45,7 +45,7 @@ upload_ssh_key() {
     then
         local pwdfile=`mktemp`
         #escape special bash symbols and save to the pwdfile
-        python -u SE-CI/escape_bash_spec_chars.py "${PASSWORD}" "$pwdfile"
+        python -u dev/escape_bash_spec_chars.py "${PASSWORD}" "$pwdfile"
         local password=`cat ${pwdfile}`
         rm -f ${pwdfile}
         expect_password\
